@@ -75,7 +75,7 @@ This project was developed by **[Quan Hoang Ngoc, and Thien-Phuc Le-Quang, Phuoc
 Feel free to reach out if you have any questions or need further assistance!
 
 - Co-Dever GitHub:
-   - [Thien-Phuc Le-Quang]
+   - [Thien-Phuc Le-Quang](https://github.com/4k4m)
    - [Phuoc Phan-Hoang]
 
 ## ⭐️ Donate & Support
