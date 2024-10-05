@@ -68,3 +68,16 @@ This project is designed for:
 - **Advanced Visualizations**: Generated insightful visualizations that help users understand the structure and distribution of trajectory data.
 
 ---
+## 👤 Author
+
+This project was developed by **[Quan Hoang Ngoc, Thien-Phuc Le-Quang, Phuoc Phan-Hoang Team]**. 
+
+Feel free to reach out if you have any questions or need further assistance!
+
+- Co-Dever GitHub:
+   - []
+   - []
+
+## ⭐️ Donate & Support
+
+If you found this project helpful and would like (star) to support its continued development, 
