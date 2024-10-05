@@ -80,4 +80,8 @@ Feel free to reach out if you have any questions or need further assistance!
 
 ## ⭐️ Donate & Support
 
-If you found this project helpful and would like (star) to support its continued development, 
+If you found this project helpful and would like to support its continued development, consider giving it a star ⭐ or making a donation. Your support helps me continue improving and maintaining the project!
+
+[GitHub Sponsor Link]
+[Buy Me a Coffee]
+Thank you for your support! 🙌
