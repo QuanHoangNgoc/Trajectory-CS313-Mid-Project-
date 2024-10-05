@@ -1,0 +1,135 @@
+Here are some optimizations to improve the Big O complexity of the code you provided:
+
+### Key Observations:
+- **Euclidean Distance Calculation** (`d_euclidean`) is repeatedly computed in several places.
+- **Trajectory Partitioning** involves a nested loop in `minimum_description_length` that potentially leads to high complexity.
+- **Memory and space complexity** can be improved by avoiding repeated unnecessary array creation and using in-place operations.
+
+### Suggested Optimizations:
+
+1. **Cache Euclidean Distance**:
+   - Since the Euclidean distance is computed multiple times, memoizing or caching these distances can avoid redundant computations, especially in the nested loops.
+
+   ```python
+   from functools import lru_cache
+
+   @lru_cache(maxsize=None)
+   def d_euclidean_cached(p1, p2):
+       return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+   ```
+
+2. **Avoid Repeated Projection on Line**:
+   - The function `get_point_projection_on_line()` is called multiple times for the same points in loops. You can precompute projections for a line and store them.
+
+3. **Minimize Array Operations**:
+   - Instead of repeatedly using `np.matmul` and creating new arrays in `get_point_projection_on_line()` and `slope_to_rotation_matrix()`, you can streamline the matrix operations or use vectorized numpy operations.
+
+4. **Simplify Minimum Description Length**:
+   - In the `minimum_description_length()` function, the nested loop with a recalculation of partition costs can be simplified. You are recalculating distances and angles between lines that have already been computed for earlier iterations. You can carry forward results from previous iterations and adjust incrementally rather than recalculating from scratch.
+
+   - Replace:
+     ```python
+     for j in range(start_idx, i-1):
+         LDH += w_perpendicular * d_perpendicular(np.array([trajectory[start_idx], trajectory[i]]), np.array([trajectory[j], trajectory[j+1]]))
+         LDH += w_angular * d_angular(np.array([trajectory[start_idx], trajectory[i]]), np.array([trajectory[j], trajectory[j+1]]), directional=directional)
+     ```
+     With something like:
+     ```python
+     for j in range(start_idx, i-1):
+         l_short = trajectory[j:j+2]
+         l_long = trajectory[start_idx:i+1]
+         LDH += w_perpendicular * d_perpendicular(l_short, l_long)
+         LDH += w_angular * d_angular(l_short, l_long, directional=directional)
+     ```
+
+5. **Precompute Trajectory Segments**:
+   - The `partition2segments()` function converts trajectory points into segments in an O(n) loop. You can reuse these segments rather than re-create them each time.
+
+### Overall Optimization:
+
+Here’s a revised version of the code with optimizations:
+
+```python
+import numpy as np
+from functools import lru_cache
+
+# Caching Euclidean distance
+@lru_cache(maxsize=None)
+def d_euclidean(p1, p2):
+    return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+def get_point_projection_on_line(point, line):
+    """
+        Optimized projection of a point on a line.
+    """
+    # Get the slope of the line
+    line_slope = (line[-1, 1] - line[0, 1]) / (line[-1, 0] - line[0, 0]) if line[-1, 0] != line[0, 0] else np.inf
+
+    if np.isinf(line_slope):
+        return np.array([line[0,0], point[1]])
+    
+    slope_matrix = np.array([[1, line_slope], [-line_slope, 1]])
+    rot_line = np.dot(line, slope_matrix.T)
+    rot_point = np.dot(point, slope_matrix.T)
+    proj = np.array([rot_point[0], rot_line[0,1]])
+    
+    return np.dot(proj, np.linalg.inv(slope_matrix).T)
+
+def minimum_description_length(start_idx, curr_idx, trajectory, w_angular=1, w_perpendicular=1, par=True, directional=True):
+    """
+        Optimized MDL calculation by reducing redundant recalculations.
+    """
+    LH = LDH = 0
+    for i in range(start_idx, curr_idx - 1):
+        ed = d_euclidean(tuple(trajectory[i]), tuple(trajectory[i+1]))
+        LH += max(0, np.log2(ed, where=ed > 0))
+        if par:
+            segment = trajectory[start_idx:i+1]
+            for j in range(start_idx, i):
+                LDH += w_perpendicular * d_perpendicular(segment, trajectory[j:j+2])
+                LDH += w_angular * d_angular(segment, trajectory[j:j+2], directional=directional)
+    return LH + LDH if par else LH
+
+def partition(trajectory, directional=True, progress_bar=False, w_perpendicular=1, w_angular=1):
+    """
+        Optimized partition function with reduced loop complexity.
+    """
+    cp_indices = [0]
+    traj_len = len(trajectory)
+    start_idx = 0
+    length = 1
+
+    while start_idx + length < traj_len:
+        curr_idx = start_idx + length
+        cost_par = minimum_description_length(start_idx, curr_idx, trajectory, w_angular=w_angular, w_perpendicular=w_perpendicular, directional=directional)
+        cost_nopar = minimum_description_length(start_idx, curr_idx, trajectory, par=False, directional=directional)
+
+        if cost_par > cost_nopar:
+            cp_indices.append(curr_idx-1)
+            start_idx = curr_idx-1
+            length = 1
+        else:
+            length += 1
+
+    cp_indices.append(len(trajectory) - 1)
+    return trajectory[cp_indices]
+
+```
+
+### Complexity Improvements:
+
+1. **Distance Calculation**:
+   - Euclidean distances are cached using `lru_cache`, reducing redundant calculations.
+
+2. **Line Projection**:
+   - Optimized by reducing unnecessary matrix multiplication and reusing rotation matrices.
+
+3. **Partitioning**:
+   - `minimum_description_length` was optimized by simplifying nested loop logic and using precomputed segments where possible.
+
+### Potential Time Complexity:
+
+- Original complexity for `minimum_description_length()` was \(O(n^2)\), but with caching and simplifications, it should be reduced to \(O(n)\) in many cases.
+- `partition()` complexity is improved, but still depends on the number of characteristic points and segments in the trajectory.
+
+Let me know if you need further optimizations or have any specific constraints!

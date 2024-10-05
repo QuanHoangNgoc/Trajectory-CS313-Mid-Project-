@@ -1,0 +1,109 @@
+{
+  //* editor font
+  "editor.fontFamily": "'Fira Code', sans-serif",
+  "editor.fontLigatures": true,
+  // editor tabSize
+  "editor.tabSize": 2,
+  // editor font
+  "editor.fontWeight": 508,
+  "editor.fontSize": 12,
+
+  //* stick scroll
+  "scroll": true,
+
+  //* edit terminal
+  "terminal.integrated.fontFamily": "'Hack'",
+  "terminal.integrated.lineHeight": 1,
+  "terminal.integrated.fontWeight": 430,
+  "terminal.integrated.fontSize": 13,
+
+  // color terminal
+  "workbench.colorCustomizations": {
+    "terminal.background": "#090300",
+    "terminal.foreground": "#A5A2A2",
+    "terminalCursor.background": "#A5A2A2",
+    "terminalCursor.foreground": "#A5A2A2",
+    "terminal.ansiBlack": "#090300",
+    "terminal.ansiBlue": "#01A0E4",
+    "terminal.ansiBrightBlack": "#5C5855",
+    "terminal.ansiBrightBlue": "#01A0E4",
+    "terminal.ansiBrightCyan": "#B5E4F4",
+    "terminal.ansiBrightGreen": "#01A252",
+    "terminal.ansiBrightMagenta": "#A16A94",
+    "terminal.ansiBrightRed": "#DB2D20",
+    "terminal.ansiBrightWhite": "#F7F7F7",
+    "terminal.ansiBrightYellow": "#FDED02",
+    "terminal.ansiCyan": "#B5E4F4",
+    "terminal.ansiGreen": "#01A252",
+    "terminal.ansiMagenta": "#A16A94",
+    "terminal.ansiRed": "#DB2D20",
+    "terminal.ansiWhite": "#A5A2A2",
+    "terminal.ansiYellow": "#FDED02"
+  },
+
+  //* format code
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // c++
+  "C_Cpp.clang_format_fallbackStyle": "Google",
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  // sql
+  "[sql]": {
+    "editor.defaultFormatter": "cymonk.sql-formatter"
+  },
+  // python
+  "[python]": {
+    // "editor.defaultFormatter": "ms-python.autopep8"
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  // "python.formatting.provider": "none",
+  "python.analysis.typeCheckingMode": "off",
+  // java
+  "[java]": {
+    // "editor.suggest.snippetsPreventQuickSuggestions": false
+    "editor.defaultFormatter": "redhat.java"
+  },
+  // auto format when save
+  //? ***
+  "editor.formatOnSave": true,
+
+  //* deafault cpp
+  "C_Cpp.errorSquiggles": "disabled",
+  "files.associations": {
+    "ostream": "cpp",
+    "iostream": "cpp"
+  },
+
+  //* pip library in python
+  "python.analysis.extraPaths": [
+    "C:\\Users\\Admin\\AppData\\Roaming\\Python\\Python311\\Lib\\site-packages"
+  ],
+
+  //* "peacock.color": "#832561",
+
+  //* Background anime
+  "background.enabled": true,
+  // "background.loop": false,
+  // "background.useDefault": false,
+  "background.useFront": false,
+  "background.style": {
+    "content": "''",
+    "pointer-events": "none",
+    "position": "absolute",
+    "z-index": "99999",
+    "width": "100%",
+    "height": "100%",
+    "margin-left": "0%",
+    "background-position": "right",
+    "background-size": "cover",
+    "background-repeat": "no-repeat",
+    "opacity": 0.3
+  },
+  "background.customImages": [
+    // "https://phunugioi.com/hinh-nen-anime-dep-de-thuong-cute-buon-ngau-lanh-lung/anime-original-15-uhd-desktop-wallpaper-for-4k-ultra-hd-tv-jpg/"
+  ],
+  // Animation:
+  "editor.cursorSmoothCaretAnimation": "off"
+  //* end setting
+}
