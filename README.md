@@ -70,13 +70,13 @@ This project is designed for:
 ---
 ## 👤 Author
 
-This project was developed by **[Quan Hoang Ngoc, Thien-Phuc Le-Quang, Phuoc Phan-Hoang Team]**. 
+This project was developed by **[Quan Hoang Ngoc, and Thien-Phuc Le-Quang, Phuoc Phan-Hoang Team]**. 
 
 Feel free to reach out if you have any questions or need further assistance!
 
 - Co-Dever GitHub:
-   - []
-   - []
+   - [Thien-Phuc Le-Quang]
+   - [Phuoc Phan-Hoang]
 
 ## ⭐️ Donate & Support
 
