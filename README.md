@@ -22,7 +22,7 @@ This project is designed for:
 - **Developers** looking for tools to analyze or visualize trajectories, whether from GPS, traffic analysis, or similar datasets.
 
 ### 🖥️ Demo and Results
-
+- ***Demo***: [***Youtube***](https://youtu.be/R14khGk608A?si=YoOqDjTJ0w-01iyD)
 1. **Trajectory Visualization**: Displays random subsets of trajectories to visualize their distribution.
 2. **Data Partitioning**: Breaks down trajectories into meaningful segments using partitioning algorithms.
 3. **Clustering with DBSCAN**: Groups trajectory segments into clusters based on similarity and distance.
